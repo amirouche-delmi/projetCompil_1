@@ -1,0 +1,90 @@
+/* ------- Les Erreurs Syntaxiques et Sémantique traitées -------- */
+
+/* -1 chaque bibliotheque doit etre sur une ligne */
+/* -2 Importation de même bibliotheque */
+/* -3 Idf non déclaré */
+/* -4 Idf double déclarée */
+/* -5 Non compatibilité de type (le cas traité: affectation une valeure à une constante incompatibile à son type) */
+/* -6 Dépassement de la taille d’un tableau */
+/* -7 Absence d’une bibliothèque nécessaire */
+/* -8 Changement de la valeure d'une constante */
+/* -9 Division sur zéro */
+/* -10 Compatibilité de signe de formatage pour l'instruction READ */
+/* -11 Taille d'une tableau egale à 0 */
+/* -12 Indice d'un tableau < 0 */
+
+
+/* declaration des bibliotheques doivent etre chacune sur une ligne */
+## PROCESS $ /* -1 ## LOOP $ */
+## LOOP $ /* -7 supprimer cette bib */
+## ARRAY $
+/* -2 ## ARRAY $ */
+
+
+Programme Hello     /* -------- debut du programme -------- */
+{
+    /* ------ Partie declaration des variables ------ */
+     VAR 
+        INTEGER :: I1 // I2 // TabI[10] /* -4 // I1 */ $ 
+        REAL :: R1 // R2 // TabR[20] /* -11 // TabR2[0] */ $
+        STRING :: S1 $
+        CHAR :: C1 // TabC[30] $
+
+    /* ------ Partie declaration des constantes ----- */
+    CONST
+        INTEGER :: Icst1 := 12 // Icst2 := 8 /* -5 // Icst3 := 23.3 */ $
+        REAL :: Rcst1 := 3.4 // Rcst2 := (-23.34) // Rcst3 := (+12.01) $
+        STRING :: Scst1 := "Hello" $
+        CHAR :: Ccst1 := 'C' $
+        
+    /* ------ Partie instructions ------ */
+
+    /* ------ Affectation -------- */
+
+    /* -3 I4 := 4 $ */
+    I1 := 1 * (2 + 3) / 5 $ 
+    TabI[0] := 0 $
+
+    /* -9 I1 := (1 - 4  + ( 1 * (2 + 3) / 0 ) / 5 ) $ */
+
+    R1 := R2 + TabR[3] $
+    TabR[3] := 23.5 $
+
+    S1 := "une chaine de caractere" $
+
+    /* -8 Ccst1 := 'A' $ */
+
+    /* ------- Entree/ sortie ------- */
+
+    READ( " % "  | @ R1 ) $
+    /* -10 READ( " & "  | @ S1 ) $ */
+    
+    WRITE("la valeur de idf %" | R2) $
+
+    WRITE("idf1 % idf2 &" | TabR[5] // Ccst1) $
+
+    /* ------- la boucle While ------ */
+
+    while( I1 INF 10)
+    {
+        R1 := ( 1 + ( 0 / 4 ) ) $
+
+        while(I2 EG TabI[3] /* -6 TabI[100] */)
+        {
+            R2 := R2 + 1.5 $
+            /* ----- la condition IF EXECUT ELSE END_IF ----- */
+            EXECUT
+                I2 := I1 + 23 $
+            IF( 2 INF 5 ) ELSE 
+            EXECUT
+                I2 := 23 + 23 $
+            END_IF $
+        }
+    }
+
+    /* ----- la condition IF EXECUT END_IF ----- */
+    EXECUT
+        I2 := 23 /* -12 + TabI[-5] */ $
+    IF( 2 INF 5 )
+    END_IF $
+}

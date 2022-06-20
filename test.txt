@@ -1,0 +1,67 @@
+/* declaration des bibliotheques doivent etre chacune sur une ligne */
+
+## PROCESS $
+## LOOP $
+## ARRAY $
+
+Programme Hello     /* -------- debut du programme -------- */
+{
+    /* ------ Partie declaration des variables ------ */
+     VAR 
+        INTEGER :: I1 // I2 // TabI[10] $ 
+        REAL :: R1 // R2 // TabR[20] $
+        STRING :: S1 $
+        CHAR :: C1 // TabC[30] $
+
+    /* ------ Partie declaration des constantes ----- */
+    CONST
+        INTEGER :: Icst1 := 12 // Icst2 := 8 $
+        REAL :: Rcst1 := 3.4 // Rcst2 := (-23.34) // Rcst3 := (+12.01) $
+        STRING :: Scst1 := "Hello" $
+        CHAR :: Ccst1 := 'C' $
+        
+    /* ------ Partie instructions ------ */
+
+    /* ------ Affectation -------- */
+
+    I1 := 1 * (2 + 3) / 5 $ 
+    TabI[0] := 0 $
+
+    R1 := R2 + TabR[3] $
+    TabR[3] := 23.5 $
+
+    S1 := "une chaine de caractere" $
+
+    /* ------- Entree/ sortie ------- */
+
+    READ( " % "  | @ R1 ) $
+    
+    WRITE("la valeur de idf %" | R2) $
+
+    WRITE("idf1 % idf2 &" | TabR[5] // Ccst1) $
+
+    /* ------- la boucle While ------ */
+
+    while( I1 INF 10)
+    {
+        R1 := ( 1 + ( 0 / 4 ) ) $
+
+        while(I2 EG TabI[3])
+        {
+            R2 := R2 + 1.5 $
+            /* ----- la condition IF EXECUT ELSE END_IF ----- */
+            EXECUT
+                I2 := I1 + 23 $
+            IF( 2 INF 5 ) ELSE 
+            EXECUT
+                I2 := 23 + 23 $
+            END_IF $
+        }
+    }
+
+    /* ----- la condition IF EXECUT END_IF ----- */
+    EXECUT
+        I2 := 23 + 23 $
+    IF( 2 INF 5 )
+    END_IF $
+}

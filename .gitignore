@@ -1,0 +1,4 @@
+compilateur.exe
+lex.yy.c
+syn.tab.c
+syn.tab.h
